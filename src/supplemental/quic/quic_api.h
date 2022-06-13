@@ -10,5 +10,6 @@ extern void quic_open();
 
 extern int quic_strm_recv(void *arg, nni_aio *raio);
 extern int quic_strm_send(void *arg, nni_aio *saio);
+extern void quic_strm_close(void *arg);
 
 #endif
