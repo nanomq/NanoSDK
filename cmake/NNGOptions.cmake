@@ -86,10 +86,10 @@ mark_as_advanced(NNG_PROTO_SURVEYOR0)
 option (NNG_PROTO_MQTT_CLIENT "Enable MQTT Client protocol." ON)
 mark_as_advanced(NNG_PROTO_MQTT_CLIENT)
 
-option (NNG_PROTO_MQTT_QUIC_CLIENT "Enable MQTT over msQuic Client protocol." OFF)
+option (NNG_PROTO_MQTT_QUIC_CLIENT "Enable MQTT over msQuic Client protocol." ON)
 mark_as_advanced(NNG_PROTO_MQTT_QUIC_CLIENT)
 
-option(NNG_ENABLE_QUIC "Enable Quic support." OFF)
+option(NNG_ENABLE_QUIC "Enable Quic support." ON)
 if (NNG_ENABLE_QUIC)
     set(NNG_SUPP_QUIC ON)
     # For now we only accept msQuic as the quic lib
