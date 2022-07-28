@@ -3,4 +3,4 @@
 	url = https://github.com/staysail/nng-wolfssl
 [submodule "extern/msquic"]
 	path = extern/msquic
-	url = git@github.com:microsoft/msquic.git
+	url = https://github.com/microsoft/msquic
