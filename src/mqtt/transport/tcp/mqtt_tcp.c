@@ -383,7 +383,9 @@ mqtt_tcptran_pipe_nego_cb(void *arg)
 			ep->reason_code = rv;
 			if (rv != 0)
 				goto mqtt_error;
-			ep->property = (void *)nni_mqtt_msg_get_connack_property(p->rxmsg);
+			property_free(ep->property);
+			property *prop = (void *)nni_mqtt_msg_get_connack_property(p->rxmsg);
+			property_dup(&ep->property, prop);
 			property_data *data;
 			data = property_get_value(ep->property, RECEIVE_MAXIMUM);
 			if (data) {
@@ -1092,6 +1094,7 @@ mqtt_tcptran_ep_fini(void *arg)
 	nng_stream_listener_free(ep->listener);
 	nni_aio_free(ep->timeaio);
 	nni_aio_free(ep->connaio);
+	property_free(ep->property);
 
 	nni_mtx_fini(&ep->mtx);
 	NNI_FREE_STRUCT(ep);
@@ -1504,9 +1507,7 @@ mqtt_tcptran_ep_get_property(void *arg, void *v, size_t *szp, nni_opt_type t)
 	mqtt_tcptran_ep *ep = arg;
 	int              rv;
 
-	nni_mtx_lock(&ep->mtx);
 	rv = nni_copyout_ptr(ep->property, v, szp, t);
-	nni_mtx_lock(&ep->mtx);
 	return (rv);
 }
 
